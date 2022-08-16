@@ -1,0 +1,21 @@
+@api = http://localhost:7000/products
+@apiPRECIO = http://localhost:7000/listaprec
+
+
+GET {{apiPRECIO}}
+Content-Type: application/json
+
+{
+    "CODEMP" : "10",
+    "CODSUC" : "10",
+    "COD_PROD" : "012101101",
+    "CLAVE" : "babys123*"
+}
+
+###
+
+get {{api}}
+
+
+
+
