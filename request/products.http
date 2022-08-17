@@ -1,5 +1,5 @@
-@api = http://localhost:7000/products
-@apiPRECIO = http://localhost:7000/listaprec
+@api = http://localhost:4000/products
+@apiPRECIO = http://localhost:4000/listaprec
 
 
 GET {{apiPRECIO}}
