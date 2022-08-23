@@ -95,10 +95,12 @@ var listaprec = /*#__PURE__*/function () {
 
           case 9:
             result2 = _context2.sent;
+            //  console.log(result2);
             // .input('CODSUC', sql.VarChar(3) , '10')
             // .input('COD_PROD', sql.VarChar(30) , '101010200')
             //.output('output_parameter', sql.VarChar(50))
-            res.json(result2.recordset);
+            //res.json(result2.recordset);
+            res.json(result2);
 
           case 11:
           case "end":

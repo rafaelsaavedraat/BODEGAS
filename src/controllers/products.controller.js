@@ -30,9 +30,10 @@ export const listaprec = async(req,res) => {
          .input('COD_PROD', sql.VarChar(30) ,COD_PROD)
           .execute('SP_IN_IVA_PRODUCTO')
   
-   
+ //  console.log(result2);
      // .input('CODSUC', sql.VarChar(3) , '10')
      // .input('COD_PROD', sql.VarChar(30) , '101010200')
        //.output('output_parameter', sql.VarChar(50))
-       res.json(result2.recordset);
+       //res.json(result2.recordset);
+       res.json(result2);
 };
