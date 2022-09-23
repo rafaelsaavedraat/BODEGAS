@@ -6,5 +6,5 @@ const router = Router();
 router.post('/listaprec', listaprec);
 //router.post('/products', createnewProducts)
 //router.delete('/products', getProducts)
-//router.get('/products', getProducts)
+router.get('/products', getProducts)
 export default router
