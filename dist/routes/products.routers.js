@@ -13,7 +13,7 @@ var router = (0, _express.Router)(); //router.get('/products', getProducts);
 
 router.post('/listaprec', _products.listaprec); //router.post('/products', createnewProducts)
 //router.delete('/products', getProducts)
-//router.get('/products', getProducts)
 
+router.get('/products', _products.getProducts);
 var _default = router;
 exports["default"] = _default;
