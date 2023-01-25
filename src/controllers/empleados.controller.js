@@ -18,7 +18,7 @@ export const sobrepago = async(req,res) => {
          .input('DESDE', sql.VarChar(10) ,DESDE)
          .input('HASTA', sql.VarChar(10) ,HASTA)
          .input('EMPLEADO', sql.VarChar(10) ,EMPLEADO)
-          .execute('SP_RP_IMPRIME_SOBRES_WEBH')
+          .execute('SP_RP_IMPRIME_SOBRES_WEBH1')
   
    
      // .input('CODSUC', sql.VarChar(3) , '10')
