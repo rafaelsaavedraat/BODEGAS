@@ -50,7 +50,7 @@ var sobrepago = /*#__PURE__*/function () {
           case 6:
             pool = _context.sent;
             _context.next = 9;
-            return pool.request().input('CODEMP', _mssql["default"].VarChar(3), CODEMP).input('CODSUC', _mssql["default"].VarChar(3), CODSUC).input('DESDE', _mssql["default"].VarChar(10), DESDE).input('HASTA', _mssql["default"].VarChar(10), HASTA).input('EMPLEADO', _mssql["default"].VarChar(10), EMPLEADO).execute('SP_RP_IMPRIME_SOBRES_WEBH');
+            return pool.request().input('CODEMP', _mssql["default"].VarChar(3), CODEMP).input('CODSUC', _mssql["default"].VarChar(3), CODSUC).input('DESDE', _mssql["default"].VarChar(10), DESDE).input('HASTA', _mssql["default"].VarChar(10), HASTA).input('EMPLEADO', _mssql["default"].VarChar(10), EMPLEADO).execute('SP_RP_IMPRIME_SOBRES_WEBH1');
 
           case 9:
             result2 = _context.sent;
