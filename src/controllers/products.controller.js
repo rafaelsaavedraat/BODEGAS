@@ -15,20 +15,19 @@ export const createnewProducts = (req,res) => {
       res.send("hola ")
 };
 
-export const listaprec = async(req,res) => {
-    const { CODEMP, CODSUC , COD_PROD , CLAVE } = req.body
+export const stockubi = async(req,res) => {
+    const { CODEMP, CODSUC ,  CLAVE } = req.body
 
      if ( CLAVE != process.env.CLAVE ) {
         return res.status(400).json({Message: 'Ingresa Clave' })
      }
-     console.log(CODEMP, CODSUC, COD_PROD)
+     console.log(CODEMP, CODSUC )
 
       const pool =  await getConnection();
       let result2 = await pool.request()
          .input('CODEMP', sql.VarChar(3) ,CODEMP)
          .input('CODSUC', sql.VarChar(3) ,CODSUC)
-         .input('COD_PROD', sql.VarChar(30) ,COD_PROD)
-          .execute('SP_IN_IVA_PRODUCTO')
+         .execute('SP_IN_STOCK_PRODUCTOS_API')
   
  //  console.log(result2);
      // .input('CODSUC', sql.VarChar(3) , '10')

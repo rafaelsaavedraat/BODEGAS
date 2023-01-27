@@ -5,7 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.listaprec = exports.getProducts = exports.createnewProducts = void 0;
+exports.stockubi = exports.getProducts = exports.createnewProducts = void 0;
 
 var _request = _interopRequireDefault(require("express/lib/request"));
 
@@ -64,15 +64,15 @@ var createnewProducts = function createnewProducts(req, res) {
 
 exports.createnewProducts = createnewProducts;
 
-var listaprec = /*#__PURE__*/function () {
+var stockubi = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var _req$body, CODEMP, CODSUC, COD_PROD, CLAVE, pool, result2;
+    var _req$body, CODEMP, CODSUC, CLAVE, pool, result2;
 
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _req$body = req.body, CODEMP = _req$body.CODEMP, CODSUC = _req$body.CODSUC, COD_PROD = _req$body.COD_PROD, CLAVE = _req$body.CLAVE;
+            _req$body = req.body, CODEMP = _req$body.CODEMP, CODSUC = _req$body.CODSUC, CLAVE = _req$body.CLAVE;
 
             if (!(CLAVE != process.env.CLAVE)) {
               _context2.next = 3;
@@ -84,14 +84,14 @@ var listaprec = /*#__PURE__*/function () {
             }));
 
           case 3:
-            console.log(CODEMP, CODSUC, COD_PROD);
+            console.log(CODEMP, CODSUC);
             _context2.next = 6;
             return (0, _connection.getConnection)();
 
           case 6:
             pool = _context2.sent;
             _context2.next = 9;
-            return pool.request().input('CODEMP', _mssql["default"].VarChar(3), CODEMP).input('CODSUC', _mssql["default"].VarChar(3), CODSUC).input('COD_PROD', _mssql["default"].VarChar(30), COD_PROD).execute('SP_IN_IVA_PRODUCTO');
+            return pool.request().input('CODEMP', _mssql["default"].VarChar(3), CODEMP).input('CODSUC', _mssql["default"].VarChar(3), CODSUC).execute('SP_IN_STOCK_PRODUCTOS_API');
 
           case 9:
             result2 = _context2.sent;
@@ -110,9 +110,9 @@ var listaprec = /*#__PURE__*/function () {
     }, _callee2);
   }));
 
-  return function listaprec(_x3, _x4) {
+  return function stockubi(_x3, _x4) {
     return _ref2.apply(this, arguments);
   };
 }();
 
-exports.listaprec = listaprec;
+exports.stockubi = stockubi;
