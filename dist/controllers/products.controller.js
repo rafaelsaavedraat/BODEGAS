@@ -5,7 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.stockubi = exports.getProducts = exports.createnewProducts = void 0;
+exports.stockubi = exports.ordencomp = exports.getProducts = exports.createnewProducts = void 0;
 
 var _request = _interopRequireDefault(require("express/lib/request"));
 
@@ -116,3 +116,56 @@ var stockubi = /*#__PURE__*/function () {
 }();
 
 exports.stockubi = stockubi;
+
+var ordencomp = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
+    var _req$body2, CODEMP, CODSUC, TIPO, NUMERO, CLAVE, pool, result2;
+
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _req$body2 = req.body, CODEMP = _req$body2.CODEMP, CODSUC = _req$body2.CODSUC, TIPO = _req$body2.TIPO, NUMERO = _req$body2.NUMERO, CLAVE = _req$body2.CLAVE;
+
+            if (!(CLAVE != process.env.CLAVE)) {
+              _context3.next = 3;
+              break;
+            }
+
+            return _context3.abrupt("return", res.status(400).json({
+              Message: 'Ingresa Clave'
+            }));
+
+          case 3:
+            console.log(CODEMP, CODSUC);
+            _context3.next = 6;
+            return (0, _connection.getConnection)();
+
+          case 6:
+            pool = _context3.sent;
+            _context3.next = 9;
+            return pool.request().input('CODEMP', _mssql["default"].VarChar(3), CODEMP).input('CODSUC', _mssql["default"].VarChar(3), CODSUC).input('TIPO', _mssql["default"].VarChar(3), TIPO).input('NUMERO', _mssql["default"].Decimal, NUMERO).execute('SP_IN_CONS_ORDENCOMP_API');
+
+          case 9:
+            result2 = _context3.sent;
+            //  console.log(result2);
+            // .input('CODSUC', sql.VarChar(3) , '10')
+            // .input('COD_PROD', sql.VarChar(30) , '101010200')
+            //.output('output_parameter', sql.VarChar(50))
+            //res.json(result2.recordset);
+            res.json(result2);
+
+          case 11:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  return function ordencomp(_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+exports.ordencomp = ordencomp;
