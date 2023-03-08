@@ -1,7 +1,7 @@
 import {Router} from "express";
-import {createnewProducts, getProducts, stockubi, ordencomp, insertaubica} from "../controllers/products.controller"
+import {createnewProducts, getmetadist, stockubi, ordencomp, insertaubica} from "../controllers/products.controller"
 const router = Router();
-//router.get('/products', getProducts);
+router.post('/metadist', getmetadist);
 
 router.post('/stock', stockubi);
 router.post('/ordencomp', ordencomp);

@@ -9,10 +9,11 @@ var _express = require("express");
 
 var _products = require("../controllers/products.controller");
 
-var router = (0, _express.Router)(); //router.get('/products', getProducts);
-
+var router = (0, _express.Router)();
+router.post('/metadist', _products.getmetadist);
 router.post('/stock', _products.stockubi);
-router.post('/ordencomp', _products.ordencomp); //router.post('/products', createnewProducts)
+router.post('/ordencomp', _products.ordencomp);
+router.post('/insertaubica', _products.insertaubica); //router.post('/products', createnewProducts)
 //router.delete('/products', getProducts)
 //router.get('/products', getProducts)
 

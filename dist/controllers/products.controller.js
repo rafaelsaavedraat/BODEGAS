@@ -5,7 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.stockubi = exports.ordencomp = exports.getProducts = exports.createnewProducts = void 0;
+exports.stockubi = exports.ordencomp = exports.insertaubica = exports.getmetadist = exports.createnewProducts = void 0;
 
 var _request = _interopRequireDefault(require("express/lib/request"));
 
@@ -23,7 +23,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-var getProducts = /*#__PURE__*/function () {
+var getmetadist = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
     var pool, result;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -36,7 +36,7 @@ var getProducts = /*#__PURE__*/function () {
           case 2:
             pool = _context.sent;
             _context.next = 5;
-            return pool.request().query("SELECT cod_prod, nombre FROM FCPRODUC");
+            return pool.request().query("SELECT TIPO,NUMERO,COD_PROD,CANTIDAD,LOTE,UBICACION FROM METADIST");
 
           case 5:
             result = _context.sent;
@@ -51,12 +51,12 @@ var getProducts = /*#__PURE__*/function () {
     }, _callee);
   }));
 
-  return function getProducts(_x, _x2) {
+  return function getmetadist(_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }();
 
-exports.getProducts = getProducts;
+exports.getmetadist = getmetadist;
 
 var createnewProducts = function createnewProducts(req, res) {
   res.send("hola ");
@@ -169,3 +169,94 @@ var ordencomp = /*#__PURE__*/function () {
 }();
 
 exports.ordencomp = ordencomp;
+
+var insertaubica = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
+    var ubica, _req$body3, CLAVE, TIPO, NUMERO, LISTA, pool, index, COD_PROD, CANTIDAD, LOTE, UBICACION;
+
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            //const ubica = [{COD_PROD, CANTIDAD}];
+            ubica = [];
+            _req$body3 = req.body, CLAVE = _req$body3.CLAVE, TIPO = _req$body3.TIPO, NUMERO = _req$body3.NUMERO;
+            LISTA = req.body.LISTA;
+            console.log(LISTA);
+
+            if (!(CLAVE != process.env.CLAVE)) {
+              _context4.next = 7;
+              break;
+            }
+
+            console.log("Ingrese clave");
+            return _context4.abrupt("return", res.status(400).json({
+              Message: 'Ingresa Clave'
+            }));
+
+          case 7:
+            _context4.next = 9;
+            return (0, _connection.getConnection)();
+
+          case 9:
+            pool = _context4.sent;
+            _context4.next = 12;
+            return pool.request().input('TIPO', _mssql["default"].VarChar(3), TIPO).input('NUMERO', _mssql["default"].Decimal, NUMERO).query("DELETE FROM METADIST WHERE TIPO= @TIPO AND NUMERO = @NUMERO  ");
+
+          case 12:
+            //ubica.push(req.body.LISTA);
+            console.log(LISTA.length);
+            index = 0;
+
+          case 14:
+            if (!(index < LISTA.length)) {
+              _context4.next = 25;
+              break;
+            }
+
+            COD_PROD = LISTA[index].COD_PROD;
+            CANTIDAD = LISTA[index].CANTIDAD;
+            LOTE = LISTA[index].LOTE;
+            UBICACION = LISTA[index].UBICACION;
+            console.log(COD_PROD);
+            _context4.next = 22;
+            return pool.request().input('TIPO', _mssql["default"].VarChar(3), TIPO).input('NUMERO', _mssql["default"].Decimal, NUMERO).input('COD_PROD', _mssql["default"].VarChar(30), COD_PROD).input('CANTIDAD', _mssql["default"].Decimal, CANTIDAD).input('LOTE', _mssql["default"].VarChar(20), LOTE).input('UBICACION', _mssql["default"].VarChar(20), UBICACION).query("INSERT INTO METADIST (TIPO,NUMERO,COD_PROD,CANTIDAD,LOTE,UBICACION) VALUES(@TIPO,@NUMERO,@COD_PROD,@CANTIDAD,@LOTE,@UBICACION) ");
+
+          case 22:
+            index++;
+            _context4.next = 14;
+            break;
+
+          case 25:
+            console.log(ubica);
+            res.json();
+            /*
+                 const pool =  await getConnection();
+                 let result2 = await pool.request()
+                    .input('CODEMP', sql.VarChar(3) ,CODEMP)
+                    .input('CODSUC', sql.VarChar(3) ,CODSUC)
+                    .input('TIPO'  , sql.VarChar(3) ,TIPO)
+                    .input('NUMERO', sql.Decimal    ,NUMERO)               
+                    .execute('SP_IN_CONS_ORDENCOMP_API')
+             */
+            //  console.log(result2);
+            // .input('CODSUC', sql.VarChar(3) , '10')
+            // .input('COD_PROD', sql.VarChar(30) , '101010200')
+            //.output('output_parameter', sql.VarChar(50))
+            //res.json(result2.recordset);
+            //  res.json(result2);
+
+          case 27:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function insertaubica(_x7, _x8) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+exports.insertaubica = insertaubica;

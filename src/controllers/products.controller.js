@@ -6,10 +6,10 @@ import sql from 'mssql';
 
 
 
-export const  getProducts = async(req,res)  =>   {
+export const  getmetadist = async(req,res)  =>   {
 
      const pool =  await getConnection();
-     const result = await pool.request().query("SELECT cod_prod, nombre FROM FCPRODUC");
+     const result = await pool.request().query("SELECT TIPO,NUMERO,COD_PROD,CANTIDAD,LOTE,UBICACION FROM METADIST");
      console.log(result);
     res.json(result.recordset);
 };
@@ -69,7 +69,7 @@ export const insertaubica = async(req,res) => {
    //const ubica = [{COD_PROD, CANTIDAD}];
    const ubica = [];
  
-   const { CLAVE } = req.body
+   const { CLAVE , TIPO , NUMERO } = req.body
    const { LISTA } = req.body
    
    console.log(LISTA)
@@ -77,37 +77,45 @@ export const insertaubica = async(req,res) => {
       console.log("Ingrese clave" )
        return res.status(400).json({Message: 'Ingresa Clave' })
     }
-        
+
+       
     const pool =  await getConnection();
+    await pool
+    .request()
+    .input('TIPO'      , sql.VarChar(3)   ,TIPO)
+    .input('NUMERO'    , sql.Decimal      ,NUMERO)  
+     .query(
+       "DELETE FROM METADIST WHERE TIPO= @TIPO AND NUMERO = @NUMERO  "
+    );
+
     //ubica.push(req.body.LISTA);
      console.log(LISTA.length);
     for (let index = 0; index < LISTA.length; index++) {
-      let ls_tipo      = LISTA[index].TIPO;
-      let ld_numero    = LISTA[index].NUMERO;
-      let ls_cod_prod  = LISTA[index].COD_PROD;
-      let ld_cantidad  = LISTA[index].CANTIDAD;
-      let ls_lote      = LISTA[index].LOTE;
-      let ls_ubicacion = LISTA[index].UBICACION;
+    
+      let COD_PROD     = LISTA[index].COD_PROD;
+      let CANTIDAD  = LISTA[index].CANTIDAD;
+      let LOTE      = LISTA[index].LOTE;
+      let UBICACION = LISTA[index].UBICACION;
 
-      
+      console.log(COD_PROD);
       await pool
          .request()
-         .input('TIPO'      , sql.VarChar(3)   ,ls_tipo)
-         .input('NUMERO'    , sql.Decimal      ,ld_numero)  
-         .input('COD_PROD'  , sql.VarChar(30)  ,ls_cod_prod) 
-         .input('CANTIDAD'  , sql.Decimal      ,ld_cantidad) 
-         .input('LOTE'       , sql.VarChar(20) ,ls_lote)  
-         .input('UBICACION'  , sql.VarChar(20) ,ls_ubicacion)  
+         .input('TIPO'      , sql.VarChar(3)   ,TIPO)
+         .input('NUMERO'    , sql.Decimal      ,NUMERO)  
+         .input('COD_PROD'  , sql.VarChar(30)  ,COD_PROD) 
+         .input('CANTIDAD'  , sql.Decimal      ,CANTIDAD) 
+         .input('LOTE'       , sql.VarChar(20) ,LOTE)  
+         .input('UBICACION'  , sql.VarChar(20) ,UBICACION)  
          .query(
-            "INSERT INTO METADIST (TIPO,NUMERO,COD_PROD,CANTIDAD,LOTE,UBICACION) VALUES(@ls_tipo,@ld_numero,@ls_cod_prod,@ld_cantidad,@ls_lote,@ls_ubicacion) "
+            "INSERT INTO METADIST (TIPO,NUMERO,COD_PROD,CANTIDAD,LOTE,UBICACION) VALUES(@TIPO,@NUMERO,@COD_PROD,@CANTIDAD,@LOTE,@UBICACION) "
          );
         // .execute('SP_IN_CONS_ORDENCOMP_API')
   
 
-      console.log('prodcutto:' ,ls_cod_prod)
-      console.log('cantidad;' ,ld_cantidad)
+      //console.log('prodcutto:' ,ls_cod_prod)
+     // console.log('cantidad;' ,ld_cantidad)
     }
-
+    
     console.log(ubica )
     res.json()
    
