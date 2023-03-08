@@ -68,7 +68,7 @@ export const insertaubica = async(req,res) => {
 
    //const ubica = [{COD_PROD, CANTIDAD}];
    const ubica = [];
- 
+  
    const { CLAVE , TIPO , NUMERO } = req.body
    const { LISTA } = req.body
    
