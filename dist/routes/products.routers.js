@@ -13,7 +13,8 @@ var router = (0, _express.Router)();
 router.post('/metadist', _products.getmetadist);
 router.post('/stock', _products.stockubi);
 router.post('/ordencomp', _products.ordencomp);
-router.post('/insertaubica', _products.insertaubica); //router.post('/products', createnewProducts)
+router.post('/insertaubica', _products.insertaubica);
+router.post('/ventasdina', _products.ventasdina); //router.post('/products', createnewProducts)
 //router.delete('/products', getProducts)
 //router.get('/products', getProducts)
 

@@ -5,7 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.stockubi = exports.ordencomp = exports.insertaubica = exports.getmetadist = exports.createnewProducts = void 0;
+exports.ventasdina = exports.stockubi = exports.ordencomp = exports.insertaubica = exports.getmetadist = exports.createnewProducts = void 0;
 
 var _request = _interopRequireDefault(require("express/lib/request"));
 
@@ -170,37 +170,86 @@ var ordencomp = /*#__PURE__*/function () {
 
 exports.ordencomp = ordencomp;
 
-var insertaubica = /*#__PURE__*/function () {
+var ventasdina = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
-    var ubica, _req$body3, CLAVE, TIPO, NUMERO, LISTA, pool, index, COD_PROD, CANTIDAD, LOTE, UBICACION;
+    var _req$body3, CODEMP, CODSUC, FECHA_DESDE, FECHA_HASTA, CLIENTE, VEND, UNIDADES, Q1, Q2, COD_PROD, CLAVE, pool, result2;
 
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            //const ubica = [{COD_PROD, CANTIDAD}];
-            ubica = [];
-            _req$body3 = req.body, CLAVE = _req$body3.CLAVE, TIPO = _req$body3.TIPO, NUMERO = _req$body3.NUMERO;
-            LISTA = req.body.LISTA;
-            console.log(LISTA);
+            _req$body3 = req.body, CODEMP = _req$body3.CODEMP, CODSUC = _req$body3.CODSUC, FECHA_DESDE = _req$body3.FECHA_DESDE, FECHA_HASTA = _req$body3.FECHA_HASTA, CLIENTE = _req$body3.CLIENTE, VEND = _req$body3.VEND, UNIDADES = _req$body3.UNIDADES, Q1 = _req$body3.Q1, Q2 = _req$body3.Q2, COD_PROD = _req$body3.COD_PROD, CLAVE = _req$body3.CLAVE;
+            console.log(CODEMP, CODSUC, FECHA_DESDE, FECHA_HASTA, CLIENTE, VEND, UNIDADES, Q1, Q2, COD_PROD, CLAVE);
 
             if (!(CLAVE != process.env.CLAVE)) {
-              _context4.next = 7;
+              _context4.next = 4;
               break;
             }
 
-            console.log("Ingrese clave");
             return _context4.abrupt("return", res.status(400).json({
               Message: 'Ingresa Clave'
             }));
 
+          case 4:
+            console.log(CODEMP, CODSUC);
+            _context4.next = 7;
+            return (0, _connection.getConnection)();
+
           case 7:
-            _context4.next = 9;
+            pool = _context4.sent;
+            _context4.next = 10;
+            return pool.request().input('CODEMP', _mssql["default"].VarChar(3), CODEMP).input('CODSUC', _mssql["default"].VarChar(3), CODSUC).input('FECHA_DESDE', _mssql["default"].VarChar(10), FECHA_DESDE).input('FECHA_HASTA', _mssql["default"].VarChar(10), FECHA_HASTA).input('CLIENTE', _mssql["default"].VarChar(15), CLIENTE).input('VEND', _mssql["default"].VarChar(15), VEND).input('UNIDADES', _mssql["default"].VarChar(15), UNIDADES).input('Q1', _mssql["default"].Int, Q1).input('Q2', _mssql["default"].Int, Q2).input('COD_PROD', _mssql["default"].VarChar(20), COD_PROD).execute('SP_FA_INFORME_VENTAS_API_DINA');
+
+          case 10:
+            result2 = _context4.sent;
+            res.json(result2);
+
+          case 12:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function ventasdina(_x7, _x8) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+exports.ventasdina = ventasdina;
+
+var insertaubica = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
+    var ubica, _req$body4, CLAVE, TIPO, NUMERO, LISTA, pool, index, COD_PROD, CANTIDAD, LOTE, UBICACION;
+
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            //const ubica = [{COD_PROD, CANTIDAD}];
+            ubica = [];
+            _req$body4 = req.body, CLAVE = _req$body4.CLAVE, TIPO = _req$body4.TIPO, NUMERO = _req$body4.NUMERO;
+            LISTA = req.body.LISTA;
+            console.log(LISTA);
+
+            if (!(CLAVE != process.env.CLAVE)) {
+              _context5.next = 7;
+              break;
+            }
+
+            console.log("Ingrese clave");
+            return _context5.abrupt("return", res.status(400).json({
+              Message: 'Ingresa Clave'
+            }));
+
+          case 7:
+            _context5.next = 9;
             return (0, _connection.getConnection)();
 
           case 9:
-            pool = _context4.sent;
-            _context4.next = 12;
+            pool = _context5.sent;
+            _context5.next = 12;
             return pool.request().input('TIPO', _mssql["default"].VarChar(3), TIPO).input('NUMERO', _mssql["default"].Decimal, NUMERO).query("DELETE FROM METADIST WHERE TIPO= @TIPO AND NUMERO = @NUMERO  ");
 
           case 12:
@@ -210,7 +259,7 @@ var insertaubica = /*#__PURE__*/function () {
 
           case 14:
             if (!(index < LISTA.length)) {
-              _context4.next = 25;
+              _context5.next = 25;
               break;
             }
 
@@ -219,12 +268,12 @@ var insertaubica = /*#__PURE__*/function () {
             LOTE = LISTA[index].LOTE;
             UBICACION = LISTA[index].UBICACION;
             console.log(COD_PROD);
-            _context4.next = 22;
+            _context5.next = 22;
             return pool.request().input('TIPO', _mssql["default"].VarChar(3), TIPO).input('NUMERO', _mssql["default"].Decimal, NUMERO).input('COD_PROD', _mssql["default"].VarChar(30), COD_PROD).input('CANTIDAD', _mssql["default"].Decimal, CANTIDAD).input('LOTE', _mssql["default"].VarChar(20), LOTE).input('UBICACION', _mssql["default"].VarChar(20), UBICACION).query("INSERT INTO METADIST (TIPO,NUMERO,COD_PROD,CANTIDAD,LOTE,UBICACION) VALUES(@TIPO,@NUMERO,@COD_PROD,@CANTIDAD,@LOTE,@UBICACION) ");
 
           case 22:
             index++;
-            _context4.next = 14;
+            _context5.next = 14;
             break;
 
           case 25:
@@ -248,14 +297,14 @@ var insertaubica = /*#__PURE__*/function () {
 
           case 27:
           case "end":
-            return _context4.stop();
+            return _context5.stop();
         }
       }
-    }, _callee4);
+    }, _callee5);
   }));
 
-  return function insertaubica(_x7, _x8) {
-    return _ref4.apply(this, arguments);
+  return function insertaubica(_x9, _x10) {
+    return _ref5.apply(this, arguments);
   };
 }();
 
