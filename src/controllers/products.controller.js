@@ -64,6 +64,36 @@ export const ordencomp = async(req,res) => {
        res.json(result2);
 };
 
+
+export const ventasdina = async(req,res) => {
+   const { CODEMP, CODSUC , FECHA_DESDE, FECHA_HASTA, CLIENTE, VEND , UNIDADES, Q1, Q2, COD_PROD,  CLAVE } = req.body
+
+
+   console.log(CODEMP, CODSUC , FECHA_DESDE, FECHA_HASTA, CLIENTE, VEND , UNIDADES, Q1, Q2, COD_PROD,  CLAVE )
+
+    if ( CLAVE != process.env.CLAVE ) {
+       return res.status(400).json({Message: 'Ingresa Clave' })
+    }
+    console.log(CODEMP, CODSUC )
+
+     const pool =  await getConnection();
+     let result2 = await pool.request()
+        .input('CODEMP', sql.VarChar(3) ,CODEMP)
+        .input('CODSUC', sql.VarChar(3) ,CODSUC)
+        .input('FECHA_DESDE'  , sql.VarChar(10) ,FECHA_DESDE)
+        .input('FECHA_HASTA', sql.VarChar(10)    ,FECHA_HASTA) 
+        .input('CLIENTE', sql.VarChar(15)    ,CLIENTE)   
+        .input('VEND', sql.VarChar(15)    ,VEND)   
+        .input('UNIDADES', sql.VarChar(15)    ,UNIDADES) 
+        .input('Q1', sql.Int ,Q1)
+        .input('Q2', sql.Int ,Q2) 
+        .input('COD_PROD', sql.VarChar(20)    ,COD_PROD)                
+        .execute('SP_FA_INFORME_VENTAS_API_DINA')
+ 
+
+      res.json(result2);
+};
+
 export const insertaubica = async(req,res) => {
 
    //const ubica = [{COD_PROD, CANTIDAD}];
