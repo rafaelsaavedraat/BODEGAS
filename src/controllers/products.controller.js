@@ -166,3 +166,28 @@ export const insertaubica = async(req,res) => {
 
     //  res.json(result2);
 };
+
+export const ventasper = async(req,res) => {
+   const { CODEMP, CODSUC , CLAVE, REPORTE, FILTRO, PERIODO , MES } = req.body
+
+
+   console.log(CODEMP, CODSUC , CLAVE, REPORTE, FILTRO, PERIODO , MES)
+
+    if ( CLAVE != process.env.CLAVE ) {
+       return res.status(400).json({Message: 'Ingresa Clave' })
+    }
+    console.log(CODEMP, CODSUC )
+
+     const pool =  await getConnection();
+     let result2 = await pool.request()
+        .input('CODEMP', sql.VarChar(3) ,CODEMP)
+        .input('CODSUC', sql.VarChar(3) ,CODSUC)
+        .input('REPORTE'  , sql.VarChar(20) ,REPORTE)
+        .input('FILTRO', sql.VarChar(20)    ,FECHA_HASTA) 
+        .input('PERIODO', sql.Int ,PERIODO)
+        .input('MES', sql.VarChar(20)    ,MES)                
+        .execute('SP_FA_INFORME_VENTAS_API_PER')
+ 
+
+      res.json(result2);
+};
