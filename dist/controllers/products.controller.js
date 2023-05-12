@@ -342,7 +342,7 @@ var ventasper = /*#__PURE__*/function () {
 
           case 10:
             result2 = _context6.sent;
-            res.json(result2);
+            res.json(result.recordset); // res.json(result2);
 
           case 12:
           case "end":

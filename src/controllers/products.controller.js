@@ -188,6 +188,6 @@ export const ventasper = async(req,res) => {
         .input('MES', sql.VarChar(20)    ,MES)                
         .execute('SP_FA_INFORME_VENTAS_API_PER')
  
- 
-      res.json(result2);
+        res.json(result.recordset);
+     // res.json(result2);
 };
