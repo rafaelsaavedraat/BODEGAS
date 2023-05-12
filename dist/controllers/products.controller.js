@@ -338,7 +338,7 @@ var ventasper = /*#__PURE__*/function () {
           case 7:
             pool = _context6.sent;
             _context6.next = 10;
-            return pool.request().input('CODEMP', _mssql["default"].VarChar(3), CODEMP).input('CODSUC', _mssql["default"].VarChar(3), CODSUC).input('REPORTE', _mssql["default"].VarChar(20), REPORTE).input('FILTRO', _mssql["default"].VarChar(20), FECHA_HASTA).input('PERIODO', _mssql["default"].Int, PERIODO).input('MES', _mssql["default"].VarChar(20), MES).execute('SP_FA_INFORME_VENTAS_API_PER');
+            return pool.request().input('CODEMP', _mssql["default"].VarChar(3), CODEMP).input('CODSUC', _mssql["default"].VarChar(3), CODSUC).input('REPORTE', _mssql["default"].VarChar(20), REPORTE).input('FILTRO', _mssql["default"].VarChar(20), FILTRO).input('PERIODO', _mssql["default"].Int, PERIODO).input('MES', _mssql["default"].VarChar(20), MES).execute('SP_FA_INFORME_VENTAS_API_PER');
 
           case 10:
             result2 = _context6.sent;

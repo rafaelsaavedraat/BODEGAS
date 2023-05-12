@@ -183,7 +183,7 @@ export const ventasper = async(req,res) => {
         .input('CODEMP', sql.VarChar(3) ,CODEMP)
         .input('CODSUC', sql.VarChar(3) ,CODSUC)
         .input('REPORTE'  , sql.VarChar(20) ,REPORTE)
-        .input('FILTRO', sql.VarChar(20)    ,FECHA_HASTA) 
+        .input('FILTRO', sql.VarChar(20)    ,FILTRO) 
         .input('PERIODO', sql.Int ,PERIODO)
         .input('MES', sql.VarChar(20)    ,MES)                
         .execute('SP_FA_INFORME_VENTAS_API_PER')
