@@ -5,7 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ventasdina = exports.stockubi = exports.ordencomp = exports.insertaubica = exports.getmetadist = exports.createnewProducts = void 0;
+exports.ventasper = exports.ventasdina = exports.stockubi = exports.ordencomp = exports.insertaubica = exports.getmetadist = exports.createnewProducts = void 0;
 
 var _request = _interopRequireDefault(require("express/lib/request"));
 
@@ -309,3 +309,52 @@ var insertaubica = /*#__PURE__*/function () {
 }();
 
 exports.insertaubica = insertaubica;
+
+var ventasper = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
+    var _req$body5, CODEMP, CODSUC, CLAVE, REPORTE, FILTRO, PERIODO, MES, pool, result2;
+
+    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _req$body5 = req.body, CODEMP = _req$body5.CODEMP, CODSUC = _req$body5.CODSUC, CLAVE = _req$body5.CLAVE, REPORTE = _req$body5.REPORTE, FILTRO = _req$body5.FILTRO, PERIODO = _req$body5.PERIODO, MES = _req$body5.MES;
+            console.log(CODEMP, CODSUC, CLAVE, REPORTE, FILTRO, PERIODO, MES);
+
+            if (!(CLAVE != process.env.CLAVE)) {
+              _context6.next = 4;
+              break;
+            }
+
+            return _context6.abrupt("return", res.status(400).json({
+              Message: 'Ingresa Clave'
+            }));
+
+          case 4:
+            console.log(CODEMP, CODSUC);
+            _context6.next = 7;
+            return (0, _connection.getConnection)();
+
+          case 7:
+            pool = _context6.sent;
+            _context6.next = 10;
+            return pool.request().input('CODEMP', _mssql["default"].VarChar(3), CODEMP).input('CODSUC', _mssql["default"].VarChar(3), CODSUC).input('REPORTE', _mssql["default"].VarChar(20), REPORTE).input('FILTRO', _mssql["default"].VarChar(20), FECHA_HASTA).input('PERIODO', _mssql["default"].Int, PERIODO).input('MES', _mssql["default"].VarChar(20), MES).execute('SP_FA_INFORME_VENTAS_API_PER');
+
+          case 10:
+            result2 = _context6.sent;
+            res.json(result2);
+
+          case 12:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+
+  return function ventasper(_x11, _x12) {
+    return _ref6.apply(this, arguments);
+  };
+}();
+
+exports.ventasper = ventasper;
