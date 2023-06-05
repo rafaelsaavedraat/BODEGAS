@@ -46,7 +46,7 @@ export const ordencomp = async(req,res) => {
      if ( CLAVE != process.env.CLAVE ) {
         return res.status(400).json({Message: 'Ingresa Clave' })
      }
-     console.log(CODEMP, CODSUC )
+     console.log(CODEMP, CODSUC ) 
 
       const pool =  await getConnection();
       let result2 = await pool.request()
